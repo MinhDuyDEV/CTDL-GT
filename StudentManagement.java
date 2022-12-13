@@ -20,9 +20,11 @@ public class StudentManagement {
         if (tree == null) {
             return false;
         } else {
+            Node clone = cloneBinaryTree(tree.getRoot());
+            undoState.push(clone);
             tree.insert(st);
+            return true;
         }
-        return true;
     }
 
     // Requirement 2
@@ -35,20 +37,36 @@ public class StudentManagement {
     public boolean removeStudent(int id) {
         Student st = searchStudentById(id);
         if (st != null) {
+            Node clone = cloneBinaryTree(tree.getRoot());
+            undoState.push(clone);
             tree.delete(st);
             return true;
         }
         return false;
     }
 
+    public Node cloneBinaryTree(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node root_copy = new Node(root.getData());
+        root_copy.setLeft(cloneBinaryTree(root.getLeft()));
+        root_copy.setRight(cloneBinaryTree(root.getRight()));
+        root_copy.setHeight(root.getHeight());
+        return root_copy;
+    }
+
     // Requirement 4
     public void undo() {
-        undoState.push(tree.getRoot());
+        redoState.push(tree.getRoot());
+        Node cloneRoot = undoState.pop();
+        this.tree.setRoot(cloneRoot);
     }
 
     // Requirement 5
     public void redo() {
-        // code here
+        Node cloneRoot = redoState.pop();
+        this.tree.setRoot(cloneRoot);
     }
 
     // Requirement 6

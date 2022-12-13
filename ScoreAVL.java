@@ -20,6 +20,7 @@ public class ScoreAVL extends AVL {
         } else {
             node.setData(key);
         }
+        node.setHeight(1 + Math.max(height(node.getLeft()), height(node.getRight())));
         node = balance(node);
         return node;
     }

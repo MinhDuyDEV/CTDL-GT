@@ -20,6 +20,7 @@ public class ScoreAVL extends AVL {
         } else {
             node.setData(key);
         }
+        node = balance(node);
         return node;
     }
 }

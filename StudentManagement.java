@@ -73,4 +73,18 @@ public class StudentManagement {
     public ScoreAVL scoreTree(AVL tree) {
         return null;
     }
+
+    public void LevelOrder(AVL tree) {
+        Queue<Node> queue = new LinkedList<Node>();
+        queue.add(tree.getRoot());
+        while (!queue.isEmpty()) {
+            Node tempNode = queue.poll();
+            if (tempNode.getLeft() != null) {
+                queue.add(tempNode.getLeft());
+            }
+            if (tempNode.getRight() != null) {
+                queue.add(tempNode.getRight());
+            }
+        }
+    }
 }

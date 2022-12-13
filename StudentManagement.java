@@ -71,14 +71,20 @@ public class StudentManagement {
 
     // Requirement 6
     public ScoreAVL scoreTree(AVL tree) {
-        return null;
+        ArrayList<Node> arrayList = levelOrder(tree);
+        for (Node child : arrayList) {
+            tree.insert(child.getData());
+        }
+        return null; // không biết return về như nào
     }
 
-    public void LevelOrder(AVL tree) {
+    public ArrayList<Node> levelOrder(AVL tree) {
         Queue<Node> queue = new LinkedList<Node>();
+        ArrayList<Node> arrayList = new ArrayList<Node>();
         queue.add(tree.getRoot());
         while (!queue.isEmpty()) {
             Node tempNode = queue.poll();
+            arrayList.add(tempNode);
             if (tempNode.getLeft() != null) {
                 queue.add(tempNode.getLeft());
             }
@@ -86,5 +92,6 @@ public class StudentManagement {
                 queue.add(tempNode.getRight());
             }
         }
+        return arrayList;
     }
 }
